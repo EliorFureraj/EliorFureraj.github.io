@@ -98,6 +98,7 @@
             justify-content: center;
             min-height: 80vh;
             gap: 30px;
+            padding: 40px 0;
         }
 
         .logo {
@@ -152,11 +153,70 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
 
-        /* Diamond/crystal logo */
-        .diamond {
-            position: relative;
-            width: 150px;
-            height: 200px;
+        /* Waitlist Form */
+        .waitlist-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .waitlist-form input {
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+            width: 100%;
+        }
+
+        .waitlist-form button {
+            width: 100%;
+        }
+
+        /* About and Contact sections */
+        .section {
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: 36px;
+            margin-bottom: 30px;
+        }
+
+        .team-members, .contact-methods {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .team-member, .contact-method {
+            max-width: 300px;
+            text-align: center;
+        }
+
+        .team-member img, .contact-method img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin-bottom: 15px;
+            object-fit: cover;
+        }
+
+        .team-member h3, .contact-method h3 {
+            margin-bottom: 10px;
+        }
+
+        footer {
+            background-color: #003055;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
         }
 
         /* Responsive design */
@@ -197,15 +257,19 @@
             .description {
                 font-size: 16px;
             }
+
+            .waitlist-form {
+                width: 90%;
+            }
         }
     </style>
 </head>
 <body>
     <nav>
         <div class="nav-links">
-            <a href="#">Home</a>
-            <a href="#">About</a>
-            <a href="#">Contact</a>
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
         </div>
         <div class="hamburger">
             <div></div>
@@ -214,15 +278,10 @@
         </div>
     </nav>
 
-    <div class="container">
+    <div id="home" class="container">
         <div class="hero">
-            <svg class="logo" viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
-                <path d="M50 0 L100 30 L100 90 L50 120 L0 90 L0 30 Z" fill="#003055" stroke="#002040" stroke-width="2"/>
-                <path d="M50 10 L90 35 L90 85 L50 110 L10 85 L10 35 Z" fill="#2a9df4" stroke="none"/>
-                <path d="M50 20 L80 40 L80 80 L50 100 L20 80 L20 40 Z" fill="#7fc8f8" stroke="none"/>
-                <path d="M50 0 L50 120 M0 30 L100 30 M0 90 L100 90" stroke="white" stroke-width="1" opacity="0.3"/>
-                <path d="M30 40 L50 50 L30 70" fill="none" stroke="white" stroke-width="1" opacity="0.6"/>
-            </svg>
+            <!-- Placeholder image for logo -->
+            <img src="resources/logo.png" alt="Akull Studios Logo" class="logo">
             
             <div>
                 <h1 class="company-name">AKULL STUDIOS</h1>
@@ -235,9 +294,56 @@
                 Creating the next generation of AI-powered role-playing games. Our engine makes it simple to integrate advanced AI capabilities into your game world.
             </p>
             
-            <a href="#" class="btn">Learn More</a>
+            <!-- Waitlist form replacing the Learn More button -->
+            <form id="waitlist-form" class="waitlist-form">
+                <input type="email" placeholder="Enter your email" required>
+                <button type="submit" class="btn">Join Waitlist</button>
+            </form>
         </div>
     </div>
+
+    <div id="about" class="section">
+        <div class="container">
+            <h2 class="section-title">About Us</h2>
+            <p class="description">
+                Akull Studios is on a mission to revolutionize RPG game development by making cutting-edge AI accessible to developers of all skill levels. 
+                Our AI-RPG Engine provides a comprehensive suite of tools that enable dynamic storytelling, 
+                lifelike NPCs, and evolving game worlds that adapt to player choices.
+            </p>
+            
+            <div class="team-members">
+                <div class="team-member">
+                    <img src="resources/elior.jpg" alt="Team Member">
+                    <h3>Team Member Name</h3>
+                    <p>Position/Role</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="contact" class="section">
+        <div class="container">
+            <h2 class="section-title">Contact Us</h2>
+            <p class="description">
+                Have questions about our AI-RPG Engine? Want to learn more about how it can enhance your game development projects? Reach out to us!
+            </p>
+            
+            <div class="contact-methods">
+                <div class="contact-method">
+                    <h3>Email</h3>
+                    <p>info@akullstudios.com</p>
+                </div>
+                <div class="contact-method">
+                    <h3>Twitter</h3>
+                    <p>@akullstudios</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Akull Studios. All rights reserved.</p>
+    </footer>
 
     <script>
         // Mobile menu toggle
@@ -246,6 +352,23 @@
         
         hamburger.addEventListener('click', () => {
             navLinks.classList.toggle('active');
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Waitlist form handling (will be configured with Formspree)
+        document.getElementById('waitlist-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            // Form submission code will go here
+            alert('Waitlist functionality will be configured with a form service.');
         });
     </script>
 </body>
