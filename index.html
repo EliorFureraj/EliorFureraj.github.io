@@ -294,10 +294,11 @@
                 Creating the next generation of AI-powered role-playing games. Our engine makes it simple to integrate advanced AI capabilities into your game world.
             </p>
             
-            <!-- Waitlist form replacing the Learn More button -->
+            <!-- Modified waitlist form -->
             <form id="waitlist-form" class="waitlist-form" action="https://formspree.io/f/mvgklako" method="POST">
-                <input type="email" placeholder="Enter your email" required>
-                <button type="submit" class="btn">Join Waitlist</button>
+                <input type="email" name="email" placeholder="Enter your email" required>
+                <button type="submit" class="btn" id="waitlist-button">Join Waitlist</button>
+                <p id="waitlist-status" style="margin-top: 10px; font-weight: 500;"></p>
             </form>
         </div>
     </div>
@@ -363,6 +364,43 @@
                 });
             });
         });
+
+
+        // Handle the waitlist form submission with AJAX
+        var waitlistForm = document.getElementById("waitlist-form");
+        var waitlistStatus = document.getElementById("waitlist-status");
+        
+        async function handleWaitlistSubmit(event) {
+            event.preventDefault();
+            waitlistStatus.innerHTML = "Submitting...";
+            
+            var data = new FormData(event.target);
+            
+            fetch(event.target.action, {
+                method: waitlistForm.method,
+                body: data,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            }).then(response => {
+                if (response.ok) {
+                    waitlistStatus.innerHTML = "Thanks for joining our waitlist!";
+                    waitlistForm.reset();
+                } else {
+                    response.json().then(data => {
+                        if (Object.hasOwn(data, 'errors')) {
+                            waitlistStatus.innerHTML = data["errors"].map(error => error["message"]).join(", ");
+                        } else {
+                            waitlistStatus.innerHTML = "Oops! There was a problem submitting your form";
+                        }
+                    });
+                }
+            }).catch(error => {
+                waitlistStatus.innerHTML = "Oops! There was a problem submitting your form";
+            });
+        }
+
+        waitlistForm.addEventListener("submit", handleWaitlistSubmit);
 
     </script>
 </body>
